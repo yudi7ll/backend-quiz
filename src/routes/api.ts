@@ -2,10 +2,10 @@ import { Router } from 'express'
 import authRouter from './auth.router'
 
 // Export the base-router
-const baseRouter = Router()
+const apiRouter = Router()
 
 // Setup routers
-baseRouter.use('/', authRouter)
+apiRouter.use('/', authRouter)
 
 // Export default.
-export default baseRouter
+export default apiRouter

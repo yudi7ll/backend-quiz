@@ -30,6 +30,9 @@ const User = sequelize.define<UserInstance>('User', {
   password: {
     type: DataTypes.STRING,
     allowNull: false,
+    validate: {
+      min: 8
+    },
     set (value: string) {
       this.setDataValue('password', hashSync(value, 10))
     }

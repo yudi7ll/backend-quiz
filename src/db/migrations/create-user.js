@@ -1,32 +1,37 @@
 'use strict'
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up (queryInterface, DataTypes) {
     await queryInterface.createTable('Users', {
       id: {
-        allowNull: false,
+        type: DataTypes.INTEGER.UNSIGNED,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        unique: true
       },
       username: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
       },
       password: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          min: 8
+        }
       },
       role: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
+        allowNull: false,
         defaultValue: 'member'
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: DataTypes.DATE
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: DataTypes.DATE
       }
     })
   },
