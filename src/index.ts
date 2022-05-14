@@ -1,24 +1,13 @@
 import './pre-start' // Must be the first import
 import logger from 'jet-logger'
 import server from './server'
-import { Sequelize } from 'sequelize'
-// import mysql from 'mysql'
+import { sequelize } from './db'
 
-// const connection = mysql.createConnection({
-//   host: 'mysql',
-//   user: 'root',
-//   password: 'secret',
-//   database: 'quiz'
-// })
-
-// connection.connect()
-
-const sequelize = new Sequelize('quiz', 'root', 'secret', {
-  host: 'mysql',
-  dialect: 'mysql'
+sequelize.authenticate().then(() => {
+  console.log('database connection: OK!')
+}).catch((err) => {
+  console.log('unable to connect to database: ', err)
 })
-
-console.log(sequelize.authenticate())
 
 // Constants
 const serverStartMsg = 'Express server started on port: '

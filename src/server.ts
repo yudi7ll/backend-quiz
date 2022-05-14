@@ -1,13 +1,12 @@
 import cookieParser from 'cookie-parser'
 import morgan from 'morgan'
-import path from 'path'
 import helmet from 'helmet'
 
 import express, { NextFunction, Request, Response } from 'express'
 import StatusCodes from 'http-status-codes'
 import 'express-async-errors'
 
-import apiRouter from './routes/api'
+import baseRouter from './routes/api'
 import logger from 'jet-logger'
 import { CustomError } from '@shared/errors'
 
@@ -38,7 +37,7 @@ if (process.env.NODE_ENV === 'production') {
  **********************************************************************************/
 
 // Add api router
-app.use('/api', apiRouter)
+app.use('/api', baseRouter)
 
 // Error handling
 app.use((err: Error | CustomError, _: Request, res: Response, __: NextFunction) => {
