@@ -21,7 +21,6 @@
   },
   "_moduleAliases": {
     "@services": "dist/services",
-    "@repos": "dist/repos",
     "@entities": "dist/entities",
     "@shared": "dist/shared",
     "@server": "dist/server",
@@ -73,7 +72,7 @@
     "jsonfile": "^6.1.0",
     "module-alias": "^2.2.2",
     "morgan": "^1.10.0",
-    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
     "sequelize": "^6.19.0"
   },
   "devDependencies": {
