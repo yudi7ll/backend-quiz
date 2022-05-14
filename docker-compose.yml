@@ -39,3 +39,13 @@ services:
       retries: 10
     networks:
       - quiz
+
+  adminer:
+    image: adminer # development only
+    ports: 
+      - 8080:8080
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - quiz
