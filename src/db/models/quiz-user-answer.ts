@@ -1,5 +1,8 @@
 import { Model, DataTypes, Optional } from 'sequelize'
 import { sequelize } from '..'
+import QuizQuestion from './quiz-question'
+import QuizQuestionOption from './quiz-question-option'
+import User from './user'
 
 export interface QuizUserAnswerAttributes {
   id: number
@@ -23,16 +26,38 @@ const QuizUserAnswer = sequelize.define<QuizUserAnswerInstance>('QuizUserAnswer'
   },
   quizQuestionId: {
     type: DataTypes.UUID,
-    allowNull: false
+    allowNull: false,
+    references: {
+      model: QuizQuestion,
+      key: 'id'
+    }
   },
   quizQuestionOptionId: {
     type: DataTypes.UUID,
-    allowNull: false
+    allowNull: false,
+    references: {
+      model: QuizQuestionOption,
+      key: 'id'
+    }
   },
   memberId: {
     type: DataTypes.UUID,
-    allowNull: false
+    allowNull: false,
+    references: {
+      model: User,
+      key: 'id'
+    }
   }
+})
+
+QuizUserAnswer.belongsTo(QuizQuestion, {
+  foreignKey: 'quizQuestionId'
+})
+QuizUserAnswer.belongsTo(QuizQuestionOption, {
+  foreignKey: 'quizQuestionOptionId'
+})
+QuizUserAnswer.belongsTo(User, {
+  foreignKey: 'memberId'
 })
 
 export default QuizUserAnswer

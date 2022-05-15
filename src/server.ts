@@ -48,5 +48,4 @@ app.use((err: Error | CustomError, _: Request, res: Response, __: NextFunction) 
   })
 })
 
-// Export here and start in a diff file (for testing).
 export default app

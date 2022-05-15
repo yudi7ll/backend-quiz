@@ -1,6 +1,8 @@
 import { hashSync } from 'bcrypt'
-import { DataTypes, Model, Optional } from 'sequelize'
+import { DataTypes, Model, Optional, Sequelize } from 'sequelize'
 import { sequelize } from '..'
+import Quiz from './quiz'
+import QuizUserAnswer from './quiz-user-answer'
 
 export interface UserAttributes {
   id: number
@@ -32,9 +34,6 @@ const User = sequelize.define<UserInstance>('User', {
     allowNull: false,
     validate: {
       min: 8
-    },
-    set (value: string) {
-      this.setDataValue('password', hashSync(value, 10))
     }
   },
   role: {
@@ -43,5 +42,40 @@ const User = sequelize.define<UserInstance>('User', {
     defaultValue: 'member'
   }
 })
+
+User.hasMany(Quiz, {
+  foreignKey: 'creatorId'
+})
+
+User.hasMany(QuizUserAnswer, {
+  foreignKey: 'memberId'
+})
+
+// User.prototype.addAuthToken = async function (token) {
+//   //
+// }
+
+// User.prototype.authorize = async function () {
+//   const user = this
+//   const authToken = await AuthToken.generate(this.id)
+
+//   await user.addAuthToken(authToken)
+
+//   return { user, authToken }
+// }
+
+// User.prototype.authenticate = async function (username: string, password: string) {
+//   const user = await User.findOne({ where: { username } })
+
+//   if (!user) {
+//     throw new Error('Invalid Username')
+//   }
+
+//   if (compareSync(password, user.password)) {
+//     return user.authorize()
+//   }
+
+//   throw new Error('Invalid password')
+// }
 
 export default User

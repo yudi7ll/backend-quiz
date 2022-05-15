@@ -1,5 +1,6 @@
 import { Model, Optional, DataTypes } from 'sequelize'
 import { sequelize } from '..'
+import QuizQuestion from './quiz-question'
 
 export interface QuizQuestionOptionAttributes {
   id: number
@@ -23,13 +24,20 @@ const QuizQuestionOption = sequelize.define<QuizQuestionOptionInstance>('QuizQue
   },
   quizQuestionId: {
     type: DataTypes.UUID,
-    allowNull: false
+    references: {
+      model: QuizQuestion,
+      key: 'id'
+    }
   },
   isCorrect: DataTypes.BOOLEAN,
   text: {
     type: DataTypes.STRING,
     allowNull: false
   }
+})
+
+QuizQuestionOption.belongsTo(QuizQuestion, {
+  foreignKey: 'quizQuestionId'
 })
 
 export default QuizQuestionOption

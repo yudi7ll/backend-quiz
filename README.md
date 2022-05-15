@@ -1,6 +1,6 @@
 ### Technology
 - express
-- bcryptjs
+- bcrypt
 - jsonwebtoken
 - sequelize
 - mysql
@@ -12,7 +12,7 @@ docker-compose up -d --build
 docker-compose exec app npx sequelize db:migrate
 docker-compose exec app npx sequelize db:seed:all
 ```
-url: http://localhost:3000
+base url: http://localhost:3000
 
 #### Rebuild
 ```

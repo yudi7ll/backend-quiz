@@ -1,16 +1,19 @@
+import { hashSync } from 'bcrypt'
 import { Request, Response } from 'express'
 import User from '../db/models/user'
 
 export const register = async (req: Request, res: Response) => {
-  const user = await User.build({
+  const user = await User.create({
     username: req.body.username,
-    password: req.body.password,
+    password: hashSync(req.body.password, 10),
     role: 'member'
-  }).save()
+  })
 
-  res.send(user.username + ' registered successfully!')
+  res.json(user)
 }
 
 export const login = (req: Request, res: Response) => {
-  res.send('anjay login')
+  //
 }
+
+export default { register, login }
